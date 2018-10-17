@@ -1,21 +1,26 @@
 <?php
 // module/Album/view/album/album/index.phtml:
-
 $title = 'My albums';
 $this->headTitle($title);
 ?>
-<h1><?= $this->escapeHtml($title) ?></h1>
+<h1><?php // $this->escapeHtml($title) ?></h1>
 
+ <a href="<?= $this->url('user', ['action' => 'add']) ?>">Register</a>
+ <a href="<?= $this->url('user', ['action' => 'login']) ?>">Login</a>
+ <hr>
 <table class="table">
 <tr>
     <th>Title</th>
-    <th>Artist</th>
-    <th>&nbsp;</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone</th>
 </tr>
-<?php foreach ($albums as $album) : ?>
+<?php foreach ($users as $user) : ?>
     <tr>
-        <td><?= $this->escapeHtml($album->title) ?></td>
-        <td><?= $this->escapeHtml($album->artist) ?></td>
+        <td><?= $this->escapeHtml($user->title) ?></td>
+        <td><?= $this->escapeHtml($user->first_name)." ". $this->escapeHtml($user->last_name)?></td>
+        <td><?= $this->escapeHtml($user->email) ?></td>
+        <td><?= $this->escapeHtml($user->phone) ?></td>
   
     </tr>
 <?php endforeach; ?>

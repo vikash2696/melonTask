@@ -31,3 +31,34 @@ div.container a.navbar-brand > img {
     margin-right: 4px;
     margin-top: -2px;
 }
+#login_div {
+    width: 400px;
+    height:300px;
+    background-color: gray;
+    align-content: center;
+}
+#register_div {
+    width: 400px;
+    height:auto;
+    background-color: gray;
+    align-content: center;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+.login_text{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    text-align: center;
+}
+#submitbutton {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}

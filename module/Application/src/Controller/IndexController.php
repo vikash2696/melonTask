@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
  * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
@@ -9,11 +10,24 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Session\Container;
 
-class IndexController extends AbstractActionController
-{
-    public function indexAction()
-    {
+class IndexController extends AbstractActionController {
+
+    public $session;
+
+    public function __construct() {
+        $this->session = new Container('User');
+    }
+
+    public function indexAction() {
+        $isLoginUser = $this->session->offsetExists('userId');
+        if ($isLoginUser) {
+            return new ViewModel([
+                'loggedInUser' => "loggedIn",
+            ]);
+        }
         return new ViewModel();
     }
+
 }
