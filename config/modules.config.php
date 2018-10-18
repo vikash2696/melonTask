@@ -12,7 +12,7 @@
  */
 return [
     'Zend\Session',
-//    'Dbsession',
+    'Game',
     'Zend\Mvc\I18n',
     'Zend\I18n',
     'Zend\InputFilter',

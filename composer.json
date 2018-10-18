@@ -23,7 +23,7 @@
     },
     "autoload": {
         "psr-4": {
-            "DBSession\\":"module/User/src/",
+            "Game\\":"module/Game/src/",
             "Application\\": "module/Application/src/",
             "User\\": "module/User/src/"
         }

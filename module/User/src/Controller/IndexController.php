@@ -34,6 +34,10 @@ class IndexController extends AbstractActionController {
     }
 
     public function addAction() {
+        $isLoginUser = $this->session->offsetExists('userId');
+        if ($isLoginUser == 1) {
+            return $this->redirect()->toRoute('home');
+        }
         $form = new UserForm();
         $form->get('submit')->setValue('Add');
         $request = $this->getRequest();
@@ -52,7 +56,10 @@ class IndexController extends AbstractActionController {
     }
 
     public function loginAction() {
-
+        $isLoginUser = $this->session->offsetExists('userId');
+        if ($isLoginUser == 1) {
+            return $this->redirect()->toRoute('home');
+        }
         $form = new LoginForm();
         $form->get('submit')->setValue('Login');
         $request = $this->getRequest();
@@ -72,17 +79,14 @@ class IndexController extends AbstractActionController {
             $this->session->offsetSet('email', $isRegisteredUser->email);
             $this->session->offsetSet('name', $isRegisteredUser->first_name . " " . $isRegisteredUser->first_name);
             return $this->redirect()->toRoute('home');
-        }else {
+        } else {
             return ['form' => $form];
         }
     }
 
-    public function editAction() {
-        
-    }
-
-    public function deleteAction() {
-        
+    public function logoutAction() {
+        $this->session->getManager()->getStorage()->clear('User');
+        return $this->redirect()->toRoute('home');
     }
 
 }

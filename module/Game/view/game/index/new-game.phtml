@@ -1,0 +1,18 @@
+<?php
+$word = str_split($this->word['word']);
+$letterCount = count($word);
+?>
+<div class="jumbotron" style="text-align:center">
+    <?php
+    for ($i = 0; $i < $letterCount; $i++) {
+        if ($i == 0 || $i == $letterCount-1) { ?>
+        <input type="text" class="word_input input_text_bold" maxlength="1" 
+            style='text-transform:uppercase' align="center" 
+            value="<?php echo $word[$i] ?>" readonly>
+        <?php } else { ?>
+        <input type="text"  id="input_id_<?php echo $i;?>" class="word_input first_last_input" maxlength="1" 
+            style='text-transform:uppercase' align="center" 
+            value="" 
+            onkeydown="return alphaOnly(event,'<?php echo $word[$i]; ?>',<?php echo $i;?>);">
+    <?php } } ?>
+</div>

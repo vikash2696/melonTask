@@ -22,9 +22,11 @@ class IndexController extends AbstractActionController {
 
     public function indexAction() {
         $isLoginUser = $this->session->offsetExists('userId');
+        $userName  = $this->session->offsetGet('username');
         if ($isLoginUser) {
             return new ViewModel([
                 'loggedInUser' => "loggedIn",
+                'userName' => $userName
             ]);
         }
         return new ViewModel();
