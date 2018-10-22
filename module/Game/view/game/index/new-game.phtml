@@ -3,6 +3,7 @@ $word = str_split($this->word['word']);
 $letterCount = count($word);
 ?>
 <div class="jumbotron" style="text-align:center">
+    <input type="hidden" id="word_length" value="<?php echo $letterCount; ?>">
     <?php
     for ($i = 0; $i < $letterCount; $i++) {
         if ($i == 0 || $i == $letterCount-1) { ?>
@@ -13,6 +14,7 @@ $letterCount = count($word);
         <input type="text"  id="input_id_<?php echo $i;?>" class="word_input first_last_input" maxlength="1" 
             style='text-transform:uppercase' align="center" 
             value="" 
-            onkeydown="return alphaOnly(event,'<?php echo $word[$i]; ?>',<?php echo $i;?>);">
+            oninput="return alphaOnly('<?php echo $word[$i]; ?>',<?php echo $i;?>);">
+        <img class= "wrong_sign" src="<?php echo $this->basePath() . '/img/cross.png' ?>" alt="wrong" height="10px;" width="10px">
     <?php } } ?>
 </div>

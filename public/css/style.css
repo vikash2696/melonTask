@@ -80,3 +80,6 @@ div.container a.navbar-brand > img {
 .error {
     border-color: red;
 }
+.wrong_sign{
+    margin-top: 50px;
+}
