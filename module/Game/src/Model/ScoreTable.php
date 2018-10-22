@@ -9,14 +9,15 @@
 namespace Game\Model;
 
 use Zend\Db\TableGateway\TableGatewayInterface;
-use Interop\Container\ContainerInterface;
-
-class GameTable {
+use Zend\Config\Config;
+class ScoreTable {
 
     private $tableGateway;
 
-    public function __construct(TableGatewayInterface $tableGateway) {
-        $this->tableGateway = $tableGateway;
+    public function __construct() {
+        
+       // $db=Zend\Db\Adapter\Adapter();
+       // $this->tableGateway = $adapter;
     }
 
     public function fetchAll() {
@@ -41,6 +42,9 @@ class GameTable {
         return $row;
     }
     
-   
+    public function fetchCurrScore($userId) {
+        $ddd=new Config();
+        print_r($ddd);die;
+    }
 
 }

@@ -15,28 +15,52 @@ use Game\Form\UserForm;
 use Game\Model\Game;
 use Game\Form\GameForm;
 use Zend\Session\Container;
+use Game\Model\ScoreTable;
+use Zend\ServiceManager\ServiceManager;
+use Zend\Db\Sql\Sql;
+use Zend\Db\ResultSet\ResultSet;
 
 class IndexController extends AbstractActionController {
 
     private $table;
     public $session;
 
-    public function __construct(GameTable $table) {
+    public function __construct($table) {
+        $dbAdapter=$table->get('dbff');
         $this->session = new Container('User');
-        $this->table = $table;
+        $this->table = $dbAdapter;
+     $sql    = new Sql($dbAdapter);
+$select = $sql->select();
+$select->from('word_library');
+$select->where(['id' => 2]);
+
+$statement = $sql->prepareStatementForSqlObject($select);
+$hhg=$this->resultSetPrototype()->initialize($statement->execute())
+        ->toArray();
+
+print_r($hhg);die;
     }
 
+    public function resultSetPrototype()
+    {
+        return new ResultSet(ResultSet::TYPE_ARRAY);
+    }
+    
     public function newGameAction() {
         $randomWord = $this->table->fetchARandomWord();
-//        echo "<pre>";
-//        print_r((array)$randomWord); die;
         return new ViewModel([
-            'word' => (array)$randomWord,
+            'word' => (array) $randomWord,
         ]);
     }
 
-    public function loginAction() {
-        
+    public function getStatisticAction() {
+        $userId = $this->session->offsetExists('userId');
+
+        $scoreTable = new ScoreTable();
+   
+        $currentScore = $scoreTable->fetchCurrScore($userId);
+        print_r($currentScore);
+        die("here");
     }
 
     public function logoutAction() {

@@ -33,15 +33,17 @@ div.container a.navbar-brand > img {
 }
 #login_div {
     width: 400px;
-    height:300px;
+    height:250px;
     background-color: gray;
     align-content: center;
+    border-radius: 10px;
 }
 #register_div {
     width: 400px;
     height:auto;
     background-color: gray;
     align-content: center;
+    border-radius: 10px;
 }
 .center {
     display: block;
@@ -55,6 +57,13 @@ div.container a.navbar-brand > img {
     margin-left: auto;
     margin-right: auto;
     width: 50%;
+    text-align: center;
+}
+.register_text{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
     text-align: center;
 }
 #submitbutton {
@@ -75,11 +84,39 @@ div.container a.navbar-brand > img {
 .first_last_input {
     font-weight: bold;
     text-align: center;
-    
+
 }
 .error {
     border-color: red;
 }
 .wrong_sign{
     margin-top: 50px;
+}
+
+.input_field{
+    margin-bottom: 10px;
+    width: 70%;
+    height: 30px;
+    border-radius: 5px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#alert_messsage{
+    margin-left: auto;
+    margin-right: auto;
+    width: 20%;
+    height: 40px;
+    padding-bottom: 30px;
+    padding-top: 10px; 
+    margin-bottom: 10px;
+}
+#new_game {
+    display: none;
+}
+#score_div{
+    float: right;
+    margin-bottom: 20px;
+    margin-right: 50px;
+    margin-top: 20px;
 }

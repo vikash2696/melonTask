@@ -39,7 +39,7 @@ class IndexController extends AbstractActionController {
             return $this->redirect()->toRoute('home');
         }
         $form = new UserForm();
-        $form->get('submit')->setValue('Add');
+        $form->get('submit')->setValue('Register Me');
         $request = $this->getRequest();
         if (!$request->isPost()) {
             return ['form' => $form];

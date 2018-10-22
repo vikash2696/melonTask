@@ -16,93 +16,107 @@ class UserForm extends Form {
         $this->add([
             'name' => 'title',
             'type' => 'text',
-            'options' => [
-                'label' => 'Title',
-            ],
+           
+            'attributes' => array(
+                'class' => 'input_field',
+                'placeholder' => "Title"
+            )
         ]);
         $this->add([
             'name' => 'first_name',
             'type' => 'text',
-            'options' => [
-                'label' => 'First Name',
-            ],
+            'attributes' => array(
+                'class' => 'input_field',
+                'placeholder' => "First Name"
+            )
         ]);
         $this->add([
             'name' => 'last_name',
             'type' => 'text',
-            'options' => [
-                'label' => 'Last Name',
-            ],
+            'attributes' => array(
+                'class' => 'input_field',
+                'placeholder' => "Last Name"
+            )
         ]);
         $this->add([
             'name' => 'username',
             'type' => 'text',
-            'options' => [
-                'label' => 'User Name',
-            ],
+            'attributes' => array(
+                'class' => 'input_field',
+                'placeholder' => "User Name"
+            )
         ]);
         $this->add([
             'name' => 'password',
             'type' => 'password',
-            'options' => [
-                'label' => 'Password',
-            ],
+            'attributes' => array(
+                'class' => 'input_field',
+                'placeholder' => "Password"
+            )
         ]);
          $this->add([
             'name' => 'cnfpassword',
             'type' => 'password',
-            'options' => [
-                'label' => 'Confirm Password',
-            ],
+            'attributes' => array(
+                'class' => 'input_field',
+                'placeholder' => "Confirm Password"
+            )
         ]);
         $this->add([
             'name' => 'email',
             'type' => 'text',
-            'options' => [
-                'label' => 'Email',
-            ],
+            'attributes' => array(
+                'class' => 'input_field',
+                'placeholder' => "Email Address"
+            )
         ]);
         $this->add([
             'name' => 'address',
             'type' => 'textarea',
-            'options' => [
-                'label' => 'Address',
-            ],
+            'attributes' => array(
+                'class' => 'input_field',
+                'placeholder' => "Address"
+            )
         ]);
         $this->add([
             'name' => 'phone',
             'type' => 'number',
-            'options' => [
-                'label' => 'Phone',
-            ],
+            'attributes' => array(
+                'class' => 'input_field',
+                'placeholder' => "Phone Number"
+            )
         ]);
         $this->add([
             'name' => 'state',
             'type' => 'text',
-            'options' => [
-                'label' => 'State',
-            ],
+            'attributes' => array(
+                'class' => 'input_field',
+                'placeholder' => "State"
+            )
         ]);
         $this->add([
             'name' => 'city',
             'type' => 'text',
-            'options' => [
-                'label' => 'City',
-            ],
+            'attributes' => array(
+                'class' => 'input_field',
+                'placeholder' => "City"
+            )
         ]);
         $this->add([
             'name' => 'country',
             'type' => 'text',
-            'options' => [
-                'label' => 'Country',
-            ],
+            'attributes' => array(
+                'class' => 'input_field',
+                'placeholder' => "Country"
+            )
         ]);
         $this->add([
             'name' => 'aboutme',
             'type' => 'textarea',
-            'options' => [
-                'label' => 'About Me',
-            ],
+            'attributes' => array(
+                'class' => 'input_field',
+                'placeholder' => "About Me"
+            )
         ]);
         $this->add([
             'name' => 'submit',

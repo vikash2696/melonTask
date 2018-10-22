@@ -38,4 +38,12 @@ insert into word_library(id,word,word_hint,status) values(1,'apple','a kind of f
 insert into word_library(id,word,word_hint,status) values(2,'person','human being','1');
 insert into word_library(id,word,word_hint,status) values(3,'elephant','an animal','1');
 
-  
+   CREATE TABLE `game_score` (
+  `id` int(100) NOT NULL AUTO_INCREMENT,
+  `user_id` int(3) NOT NULL,
+  `won_game` int(100) DEFAULT NULL,
+  `loss_game` int(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `game_score_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+)

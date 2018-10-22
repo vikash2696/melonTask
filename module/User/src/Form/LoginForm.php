@@ -12,16 +12,20 @@ class LoginForm extends Form {
         $this->add([
             'name' => 'username',
             'type' => 'text',
-            'options' => [
-                'label' => 'User Name',
-            ],
+
+            'attributes' => array(
+                'class' => 'input_field',
+                'placeholder' => "User name"
+            )
         ]);
         $this->add([
             'name' => 'password',
             'type' => 'password',
-            'options' => [
-                'label' => 'Password',
-            ],
+   
+            'attributes' => array(
+                'class' => 'input_field',
+                'placeholder' => "Password"
+            )
         ]);
         $this->add([
             'name' => 'submit',
@@ -30,6 +34,9 @@ class LoginForm extends Form {
                 'value' => 'Login',
                 'id' => 'Loginbutton',
             ],
+            'attributes' => array(
+                'class' => 'login_btn',
+            )
         ]);
         $this->add([
             'name' => 'register',
