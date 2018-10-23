@@ -14,7 +14,7 @@ $(document).ready(function () {
     lossGame = parseInt($("#lossed_game").val());
     var options = {
         title: {
-            text: "Won and lossed Data"
+            text: "Won and lost Data"
         },
         data: [
             {
@@ -65,14 +65,10 @@ function checkInputCount(array_elements, inputField,id) {
     array_elements.forEach(function (x) {
         counts[x] = (counts[x] || 0) + 1;
     });
-//    console.log(counts);
     $.each(counts, function (key, value) {
-        console.log(key);
-        console.log(value);
-        console.log(id);
         $("#attempt_"+id).html((5-value) + " Attempt left");
         if (value == 5) {
-            $('.msg').html("You lossed !!!");
+            $('.msg').html("You lost !!!");
             $("#alert_messsage").css("display", "block")
             $("#alert_messsage").removeClass();
             alertMessageDiv.classList.add("alert-danger");
