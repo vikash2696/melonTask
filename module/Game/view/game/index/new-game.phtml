@@ -3,8 +3,10 @@ $word = str_split($this->word['word']);
 $letterCount = count($word);
 ?>
  <div id="score_div">
-    <button type="button" id="statistic" class="btn btn-default">Statistic</button>
-    <button type="button" id="exit" class="btn btn-default">Exit</button>
+    <a href="<?= $this->url('game', ['action' => 'statistic']) ?>" target="_self">
+    <button type="button" id="statistic" class="btn btn-default">Statistic</button></a>
+    <a href="<?= $this->url('user', ['action' => 'logout']) ?>" target="_self">
+    <button type="button" id="exit" class="btn btn-default">Exit</button></a>
     </div>
 <div class="jumbotron" style="text-align:center">
    
@@ -21,7 +23,6 @@ $letterCount = count($word);
             style='text-transform:uppercase' align="center" 
             value="" 
             oninput="return alphaOnly('<?php echo $word[$i]; ?>',<?php echo $i;?>);">
-<!--        <img class= "wrong_sign" src="<?php echo $this->basePath() . '/img/cross.png' ?>" alt="wrong" height="10px;" width="10px">-->
     <?php } } ?>
         <button type="button" class="btn btn-default" data-toggle="tooltip"
                 data-placement="top" title="<?php echo  $this->word['word_hint']; ?>">Hint</button>

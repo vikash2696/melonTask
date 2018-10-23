@@ -8,43 +8,60 @@
 
 namespace Game\Model;
 
-use Zend\Db\TableGateway\TableGatewayInterface;
-use Zend\Config\Config;
-class ScoreTable {
+use Zend\Db\Sql\Sql;
+use Zend\Db\ResultSet\ResultSet;
 
-    private $tableGateway;
+class ScoreTable {
 
     public function __construct() {
         
-       // $db=Zend\Db\Adapter\Adapter();
-       // $this->tableGateway = $adapter;
     }
 
-    public function fetchAll() {
-        return $this->tableGateway->select();
+    public function resultSetPrototype() {
+        return new ResultSet(ResultSet::TYPE_ARRAY);
     }
 
-    public function fetchARandomWord() {
-        $allWord = $this->fetchAll();
-        $count = 0;
-        foreach ($allWord as $word) {
-            ++$count;
-        }
-        $randomId = random_int(1, $count);
-        $id = (int) $randomId;
-        $rowset = $this->tableGateway->select(['id' => $id]);
-        $row = $rowset->current();
-        if (!$row) {
-            throw new RuntimeException(sprintf(
-                    'Could not find row with identifier %d', $id
-            ));
-        }
+    public function fetchCurrScore($dbAdapter, $userId) {
+        $sql = new Sql($dbAdapter);
+        $select = $sql->select();
+        $select->from('game_score');
+        $select->columns(['won_game', 'loss_game']);
+        $select->where(['user_id' => $userId]);
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $row = $this->resultSetPrototype()->initialize($statement->execute())
+                ->toArray();
         return $row;
     }
-    
-    public function fetchCurrScore($userId) {
-        $ddd=new Config();
-        print_r($ddd);die;
+
+    public function updateCurrScore($dbAdapter, $userId, $data) {
+        $isLoss = $isWon = 0;
+        if ($data == "yes") {
+            $isWon = 1;
+        } else {
+            $isLoss = 0;
+        }
+        $sql = new Sql($dbAdapter);
+        $select = $sql->select();
+        $select->from('game_score');
+//        $select->columns([$isWon]);
+        $select->where(['user_id' => $userId]);
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $row = $this->resultSetPrototype()->initialize($statement->execute())
+                ->toArray();
+
+        if (empty($row)) {
+            $sql = new Sql($dbAdapter);
+            $columns = ["user_id" => $userId, "won_game" => '1', "loss_game" => '1'];
+//            print_r($columns); die;
+            $insert = $sql->insert();
+            $insert->columns($columns);
+            print_r($insert); die;
+            $statement = $sql->prepareStatementForSqlObject($insert);
+            $row = $this->resultSetPrototype()->initialize($statement->execute());
+        }
+//        $adapter = $this->tableGateway->getAdapter();
+//    $otherTable = new Zend\Db\TableGateway\TableGateway('table_name', $adapter);
+//    $otherTable->insert($data));
     }
 
 }

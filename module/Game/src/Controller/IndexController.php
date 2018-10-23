@@ -11,61 +11,60 @@ namespace Game\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Game\Model\GameTable;
-use Game\Form\UserForm;
-use Game\Model\Game;
-use Game\Form\GameForm;
 use Zend\Session\Container;
 use Game\Model\ScoreTable;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Db\Sql\Sql;
-use Zend\Db\ResultSet\ResultSet;
+use Game\Model\BaseModel;
 
 class IndexController extends AbstractActionController {
 
-    private $table;
     public $session;
+    public $dbAdapter;
 
-    public function __construct($table) {
-        $dbAdapter=$table->get('dbff');
+    public function __construct($db) {
+        $this->dbAdapter = $db->get('dbAdapter');
         $this->session = new Container('User');
-        $this->table = $dbAdapter;
-     $sql    = new Sql($dbAdapter);
-$select = $sql->select();
-$select->from('word_library');
-$select->where(['id' => 2]);
-
-$statement = $sql->prepareStatementForSqlObject($select);
-$hhg=$this->resultSetPrototype()->initialize($statement->execute())
-        ->toArray();
-
-print_r($hhg);die;
     }
 
-    public function resultSetPrototype()
-    {
-        return new ResultSet(ResultSet::TYPE_ARRAY);
-    }
-    
     public function newGameAction() {
-        $randomWord = $this->table->fetchARandomWord();
-        return new ViewModel([
-            'word' => (array) $randomWord,
-        ]);
+        $userId = $this->session->offsetExists('userId');
+        if ($userId) {
+            $gameTable = new GameTable();
+            $randomWord = $gameTable->fetchARandomWord($this->dbAdapter);
+            return new ViewModel([
+                'word' => $randomWord[0],
+            ]);
+        } else {
+            return $this->redirect()->toRoute('home');
+        }
     }
 
-    public function getStatisticAction() {
+    public function statisticAction() {
         $userId = $this->session->offsetExists('userId');
-
-        $scoreTable = new ScoreTable();
-   
-        $currentScore = $scoreTable->fetchCurrScore($userId);
-        print_r($currentScore);
-        die("here");
+        if ($userId) {
+            $scoreTable = new ScoreTable();
+            $currentScore = $scoreTable->fetchCurrScore($this->dbAdapter,$userId);
+            print_r($currentScore);
+            die("here");
+        } else {
+            return $this->redirect()->toRoute('home');
+        }
     }
 
     public function logoutAction() {
         $this->session->getManager()->getStorage()->clear('User');
         return $this->redirect()->toRoute('home');
+    }
+    
+    public function updateStatisticAction() {
+        $userId = $this->session->offsetExists('userId');
+        if ($userId) {
+            $data = $_GET['data'];
+            $scoreTable = new ScoreTable();
+            $currentScore = $scoreTable->updateCurrScore($this->dbAdapter,$userId,$data);
+            return true;
+        } else {
+            return $this->redirect()->toRoute('home');
+        }
     }
 
 }

@@ -21,7 +21,7 @@ class Module implements ConfigProviderInterface {
         return [
             'factories' => [
                 Model\GameTable::class => Model\Factory\GameTableFactory::class,
-                'dbff' => function ($serviceManager)
+                'dbAdapter' => function ($serviceManager)
                 {
                     $dbAdapter = $serviceManager->get('Zend\Db\Adapter\Adapter');
                     return $dbAdapter;

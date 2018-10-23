@@ -10,22 +10,6 @@ $(document).ready(function () {
     $("#new_game").on('click', function () {
         location.reload();
     });
-    $("#statistic").on('click', function () {
-        $.ajax({
-            type: "GET",
-            url: "/game/getStatistic",
-            async: false,
-            success: function (data) {
-                options = '<option value="" selected="selected">' + TASK_SELECT + '</option>';
-                var obj = $.parseJSON(data);
-                $.each(obj, function (index, value) {
-                    options += "<option value='" + index + "'>" + value + "</option>";
-                });
-                $('#created_by').html(options);
-                $('.custom-select').selectpicker();
-            }
-        });
-    });
 });
 function alphaOnly(char, id) {
     $("#alert_messsage").hide();
@@ -41,6 +25,7 @@ function alphaOnly(char, id) {
             inputField.value = inputChar;
             inputField.classList.remove("error");
             $("#alert_messsage").show(500);
+             $("#alert_messsage").removeClass();
             alertMessageDiv.classList.add("alert-success");
             $('.msg').html("Great !!!");
             $(this).next('.word_input').focus();
@@ -52,6 +37,7 @@ function alphaOnly(char, id) {
             if (input) {
                 inputField.classList.add("error");
                 $("#alert_messsage").show(500);
+                $("#alert_messsage").removeClass();
                 alertMessageDiv.classList.add("alert-warning");
                 $('.msg').html("Oops !!!");
                 inputField.value = "";
@@ -62,16 +48,18 @@ function alphaOnly(char, id) {
 }
 
 function checkInputCount(array_elements) {
-    var counts = {};
+    counts = {};
     array_elements.forEach(function (x) {
         counts[x] = (counts[x] || 0) + 1;
     });
 //    counts = JSON.stringify(counts);
 
     for (cnt in counts) {
+        console.log(counts[cnt]);
         if (counts[cnt] == 5) {
             $('.msg').html("You lossed !!!");
             $("#alert_messsage").show(500);
+             $("#alert_messsage").removeClass();
             alertMessageDiv.classList.add("alert-danger");
             return false;
         }
@@ -86,12 +74,25 @@ function isChar(str) {
 function isWordComplete(matchCount, wordLength) {
     if ((matchCount + 2) == wordLength) {
         $("#alert_messsage").show(500);
+         $("#alert_messsage").removeClass();
         alertMessageDiv.classList.add("alert-success");
         $('.msg').html("You won !!!");
+        updateUserRecord("yes");
         matchCount = 0;
         $("input").prop('disabled', true);
-//        $("input").prop('disabled', false);
         $("#new_game").css("display", "block");
     }
 
+}
+
+function updateUserRecord(record) {
+    $.ajax({
+        type: "GET",
+        data: {"data": record},
+        url: "/game/updateStatistic",
+        async: false,
+        success: function (data) {
+            alert("done");
+        }
+    });
 }

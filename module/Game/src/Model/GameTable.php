@@ -8,39 +8,36 @@
 
 namespace Game\Model;
 
-use Zend\Db\TableGateway\TableGatewayInterface;
-use Interop\Container\ContainerInterface;
+use Zend\Db\Sql\Sql;
+use Zend\Db\ResultSet\ResultSet;
 
 class GameTable {
 
-    private $tableGateway;
+    public $dbAdapter;
 
-    public function __construct(TableGatewayInterface $tableGateway) {
-        $this->tableGateway = $tableGateway;
+    public function __construct() {
     }
 
-    public function fetchAll() {
-        return $this->tableGateway->select();
+    public function resultSetPrototype() {
+        return new ResultSet(ResultSet::TYPE_ARRAY);
     }
 
-    public function fetchARandomWord() {
-        $allWord = $this->fetchAll();
-        $count = 0;
-        foreach ($allWord as $word) {
-            ++$count;
-        }
+    public function fetchARandomWord($dbAdapter) {
+        $sql = new Sql($dbAdapter);
+        $select = $sql->select();
+        $select->from('word_library');
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $count = $this->resultSetPrototype()->initialize($statement->execute())
+                ->count();
         $randomId = random_int(1, $count);
         $id = (int) $randomId;
-        $rowset = $this->tableGateway->select(['id' => $id]);
-        $row = $rowset->current();
-        if (!$row) {
-            throw new RuntimeException(sprintf(
-                    'Could not find row with identifier %d', $id
-            ));
-        }
+        $select = $sql->select();
+        $select->from('word_library');
+        $select->where(['id' => $id]);
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $row = $this->resultSetPrototype()->initialize($statement->execute())
+                ->toArray();
         return $row;
     }
-    
-   
 
 }
