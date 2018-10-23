@@ -156,6 +156,30 @@ class User implements InputFilterAwareInterface {
             ],
         ]);
         $inputFilter->add([
+            'name' => 'cnfpassword',
+            'required' => true,
+            'filters' => [
+                    ['name' => StripTags::class],
+                    ['name' => StringTrim::class],
+            ],
+            'validators' => [
+                    [
+                    'name' => StringLength::class,
+                    'options' => [
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                ],
+                    [
+                    'name' => 'Identical',
+                    'options' => [
+                        'token' => 'password',
+                    ],
+                ],
+            ],
+        ]);
+        $inputFilter->add([
             'name' => 'email',
             'required' => true,
             'filters' => [
@@ -171,6 +195,13 @@ class User implements InputFilterAwareInterface {
                         'max' => 100,
                     ],
                 ],
+                   [
+            'name' => 'EmailAddress',
+            'options' => [
+              'allow' => \Zend\Validator\Hostname::ALLOW_DNS,
+              'useMxCheck' => false,                            
+            ],
+          ],
             ],
         ]);
         $inputFilter->add([

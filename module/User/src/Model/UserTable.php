@@ -53,7 +53,12 @@ class UserTable {
         ];
         $id = (int) $user->id;
         if ($id === 0) {
-            $this->tableGateway->insert($data);
+            $isExistEmail = $this->checkExistEmail($data['email']);
+            if (empty($isExistEmail)) {
+                $this->tableGateway->insert($data);
+            }else {
+                return false;
+            }
             return;
         }
         if (!$this->getUserData($id)) {
@@ -64,13 +69,24 @@ class UserTable {
         $this->tableGateway->update($data, ['id' => $id]);
     }
 
+    public function checkExistEmail($email) {
+        $rowset = $this->tableGateway->select(['email' => $email]);
+        $row = $rowset->current();
+        if (!$row) {
+            throw new RuntimeException(sprintf(
+                    'Could not find row with identifier %d', $id
+            ));
+        }
+        return $row;
+    }
+
     public function loginUser(User $user) {
         $data = [
             'username' => $user->username,
             'password' => md5($user->password),
         ];
         $where = ['username' => $data['username'],
-            'password'=> $data['password']];
+            'password' => $data['password']];
         $rowset = $this->tableGateway->select($where);
         $row = $rowset->current();
         if ($row) {

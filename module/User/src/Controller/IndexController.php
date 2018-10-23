@@ -52,7 +52,7 @@ class IndexController extends AbstractActionController {
         }
         $user->exchangeArray($form->getData());
         $this->table->saveUserData($user);
-        return $this->redirect()->toRoute('user');
+        return $this->redirect()->toRoute('home');
     }
 
     public function loginAction() {
