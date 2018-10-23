@@ -45,6 +45,7 @@ div.container a.navbar-brand > img {
     align-content: center;
     border-radius: 10px;
 }
+
 .center {
     display: block;
     margin-left: auto;
@@ -73,7 +74,7 @@ div.container a.navbar-brand > img {
     width: 30%;
 }
 .word_input{
-    width: 8%;
+    width: 100%;
     height: 40px;
 }
 .input_text_bold{
@@ -109,14 +110,37 @@ div.container a.navbar-brand > img {
     height: 40px;
     padding-bottom: 30px;
     padding-top: 10px; 
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    
 }
 #new_game {
     display: none;
+    float: left;
+    margin-left: 20px;
+    height: 40px;
 }
+
 #score_div{
     float: right;
     margin-bottom: 20px;
     margin-right: 50px;
     margin-top: 20px;
+}
+#chartContainer {
+    margin-top: 15px;
+    border-radius: 5px;
+}
+.attempt_left{
+    border-radius: 5px;
+    height: 5px;
+    width: 15px;
+}
+.attempt_div{
+    float: left;
+    width: 90px;
+}
+#hint_btn, #new_game{
+    float: left;
+    margin: 0px 0 0 5px;
+    height: 40px;
 }

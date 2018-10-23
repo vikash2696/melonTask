@@ -1,0 +1,21 @@
+<?php
+$score = $this->score;
+?>
+<div id="score_div">
+    <input type="hidden" id="word_length" value="">
+    <input type="hidden" id="won_game" value="<?php echo $score['won_game']; ?>">
+    <input type="hidden" id="lossed_game" value="<?php echo $score['loss_game']; ?>">
+    <a href="<?= $this->url('game', ['action' => 'newGame']) ?>" target="_self">
+        <button type="button" id="statistic" class="btn btn-default">New Game</button></a>
+    <a href="<?= $this->url('user', ['action' => 'logout']) ?>" target="_self">
+        <button type="button" id="exit" class="btn btn-default">Exit</button></a>
+</div>
+<div class="jumbotron" style="text-align:center">
+    
+    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+
+</div>
+
+<script>
+
+</script>

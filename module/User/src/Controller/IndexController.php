@@ -26,12 +26,12 @@ class IndexController extends AbstractActionController {
         $this->table = $table;
     }
 
-    public function indexAction() {
-        return new ViewModel([
-            'users' => $this->table->fetchAll(),
-        ]);
-        return new ViewModel();
-    }
+//    public function indexAction() {
+//        return new ViewModel([
+//            'users' => $this->table->fetchAll(),
+//        ]);
+//        return new ViewModel();
+//    }
 
     public function addAction() {
         $isLoginUser = $this->session->offsetExists('userId');

@@ -3,11 +3,14 @@ $word = str_split($this->word['word']);
 $letterCount = count($word);
 ?>
  <div id="score_div">
+     <input type="hidden" id="chartContainer" value="">
+     
     <a href="<?= $this->url('game', ['action' => 'statistic']) ?>" target="_self">
     <button type="button" id="statistic" class="btn btn-default">Statistic</button></a>
     <a href="<?= $this->url('user', ['action' => 'logout']) ?>" target="_self">
     <button type="button" id="exit" class="btn btn-default">Exit</button></a>
     </div>
+<div class="clearfix"></div>
 <div class="jumbotron" style="text-align:center">
    
     <div class="" role="alert" id="alert_messsage"><span class="msg"></span></div>
@@ -15,16 +18,22 @@ $letterCount = count($word);
     <?php
     for ($i = 0; $i < $letterCount; $i++) {
         if ($i == 0 || $i == $letterCount-1) { ?>
+    <div class="attempt_div">
         <input type="text" class="word_input input_text_bold" maxlength="1" 
             style='text-transform:uppercase' align="center" 
             value="<?php echo $word[$i] ?>" readonly>
+        </div>
         <?php } else { ?>
+        <div class="attempt_div">
         <input type="text"  id="input_id_<?php echo $i;?>" class="word_input first_last_input" maxlength="1" 
             style='text-transform:uppercase' align="center" 
             value="" 
             oninput="return alphaOnly('<?php echo $word[$i]; ?>',<?php echo $i;?>);">
-    <?php } } ?>
-        <button type="button" class="btn btn-default" data-toggle="tooltip"
+        <span class="attempt_left" id="attempt_<?php echo $i;?>"></span>
+        </div>
+        <?php } } ?>
+        <button type="button" id="hint_btn" class="btn btn-secondary" data-toggle="tooltip"
                 data-placement="top" title="<?php echo  $this->word['word_hint']; ?>">Hint</button>
-        <button type="button" id="new_game" hidden="hidden" class="btn btn-default">New game</button>
+        <button type="button" id="new_game" hidden="hidden" class="btn btn-primary">New game</button>
+        <div class="clearfix"></div>
 </div>

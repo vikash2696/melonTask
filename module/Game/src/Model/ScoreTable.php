@@ -34,34 +34,34 @@ class ScoreTable {
     }
 
     public function updateCurrScore($dbAdapter, $userId, $data) {
-        $isLoss = $isWon = 0;
-        if ($data == "yes") {
-            $isWon = 1;
-        } else {
-            $isLoss = 0;
-        }
+        $isExist = $this->fetchCurrScore($dbAdapter, $userId);
         $sql = new Sql($dbAdapter);
-        $select = $sql->select();
-        $select->from('game_score');
-//        $select->columns([$isWon]);
-        $select->where(['user_id' => $userId]);
-        $statement = $sql->prepareStatementForSqlObject($select);
-        $row = $this->resultSetPrototype()->initialize($statement->execute())
-                ->toArray();
-
-        if (empty($row)) {
-            $sql = new Sql($dbAdapter);
-            $columns = ["user_id" => $userId, "won_game" => '1', "loss_game" => '1'];
-//            print_r($columns); die;
-            $insert = $sql->insert();
-            $insert->columns($columns);
-            print_r($insert); die;
-            $statement = $sql->prepareStatementForSqlObject($insert);
-            $row = $this->resultSetPrototype()->initialize($statement->execute());
+        if (empty($isExist)) {
+            if ($data == "yes") {
+                $isWon = 1;
+                $isLoss = 0;
+            } else {
+                $isWon = 0;
+                $isLoss = 1;
+            }
+            $columns = ["user_id" => $userId, "won_game" => $isWon, "loss_game" => $isLoss];
+            $insert = $sql->insert('game_score');
+            $insert->values($columns);
+        } else {
+            if ($data == "yes") {
+                $isWon = $isExist[0]['won_game'] + 1;
+                $isLoss = $isExist[0]['loss_game'];
+            } else {
+                $isWon = $isExist[0]['won_game'];
+                $isLoss = $isExist[0]['loss_game'] + 1;
+            }
+            $columns = ["user_id" => $userId, "won_game" => $isWon, "loss_game" => $isLoss];
+            $insert = $sql->update('game_score');
+            $insert->set($columns);
+            $insert->where(['user_id' => $userId]);
         }
-//        $adapter = $this->tableGateway->getAdapter();
-//    $otherTable = new Zend\Db\TableGateway\TableGateway('table_name', $adapter);
-//    $otherTable->insert($data));
+        $insertString = $sql->getSqlStringForSqlObject($insert);
+        $dbAdapter->query($insertString, \Zend\Db\Adapter\Adapter::QUERY_MODE_EXECUTE);
     }
 
 }

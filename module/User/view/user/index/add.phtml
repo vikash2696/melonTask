@@ -3,6 +3,8 @@ $title = 'Add New Player';
 $this->headTitle($title);
 ?>
 <div id="register_div" class="center">
+      <input type="hidden" id="word_length" value="">
+    <input type="hidden" id="chartContainer" value="">
     <h1 class="register_text"><?= $this->escapeHtml($title) ?></h1>
     <hr>
     <?php
@@ -24,7 +26,6 @@ $this->headTitle($title);
     echo $this->formRow($form->get('city'));
     echo $this->formRow($form->get('country'));
     echo $this->formRow($form->get('aboutme'));
-//    echo "</br>";
     echo $this->formSubmit($form->get('submit'));
     echo $this->form()->closeTag();
     ?>

@@ -50,7 +50,7 @@ class User implements InputFilterAwareInterface {
     }
 
     public function getInputFilter() {
-        if ($this->inputFilter) {
+        if (isset($this->inputFilter)) {
             return $this->inputFilter;
         }
 
@@ -175,7 +175,7 @@ class User implements InputFilterAwareInterface {
         ]);
         $inputFilter->add([
             'name' => 'address',
-            'required' => true,
+            'required' => false,
             'filters' => [
                     ['name' => StripTags::class],
                     ['name' => StringTrim::class],
@@ -209,7 +209,7 @@ class User implements InputFilterAwareInterface {
         ]);
         $inputFilter->add([
             'name' => 'state',
-            'required' => true,
+            'required' => false,
             'filters' => [
                     ['name' => StripTags::class],
                     ['name' => StringTrim::class],
@@ -227,7 +227,7 @@ class User implements InputFilterAwareInterface {
         ]);
         $inputFilter->add([
             'name' => 'city',
-            'required' => true,
+            'required' => false,
             'filters' => [
                     ['name' => StripTags::class],
                     ['name' => StringTrim::class],
@@ -245,7 +245,7 @@ class User implements InputFilterAwareInterface {
         ]);
         $inputFilter->add([
             'name' => 'country',
-            'required' => true,
+            'required' => false,
             'filters' => [
                     ['name' => StripTags::class],
                     ['name' => StringTrim::class],
@@ -263,7 +263,7 @@ class User implements InputFilterAwareInterface {
         ]);
         $inputFilter->add([
             'name' => 'aboutme',
-            'required' => true,
+            'required' => false,
             'filters' => [
                     ['name' => StripTags::class],
                     ['name' => StringTrim::class],

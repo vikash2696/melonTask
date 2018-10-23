@@ -43,8 +43,9 @@ class IndexController extends AbstractActionController {
         if ($userId) {
             $scoreTable = new ScoreTable();
             $currentScore = $scoreTable->fetchCurrScore($this->dbAdapter,$userId);
-            print_r($currentScore);
-            die("here");
+            return new ViewModel([
+                'score' => $currentScore[0],
+            ]);
         } else {
             return $this->redirect()->toRoute('home');
         }
