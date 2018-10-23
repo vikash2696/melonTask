@@ -51,8 +51,9 @@ class IndexController extends AbstractActionController {
             return ['form' => $form];
         }
         $user->exchangeArray($form->getData());
-        $this->table->saveUserData($user);
+        $isRegister = $this->table->saveUserData($user);
         return $this->redirect()->toRoute('home');
+        
     }
 
     public function loginAction() {

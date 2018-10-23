@@ -70,13 +70,9 @@ class UserTable {
     }
 
     public function checkExistEmail($email) {
+  
         $rowset = $this->tableGateway->select(['email' => $email]);
         $row = $rowset->current();
-        if (!$row) {
-            throw new RuntimeException(sprintf(
-                    'Could not find row with identifier %d', $id
-            ));
-        }
         return $row;
     }
 
