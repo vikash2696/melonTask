@@ -39,7 +39,7 @@ class IndexController extends AbstractActionController {
     }
 
     public function statisticAction() {
-        $userId = $this->session->offsetExists('userId');
+        $userId = $this->session->offsetGet('userId');
         if ($userId) {
             $scoreTable = new ScoreTable();
             $currentScore = $scoreTable->fetchCurrScore($this->dbAdapter,$userId);

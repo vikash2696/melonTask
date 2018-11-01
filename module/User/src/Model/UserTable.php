@@ -37,18 +37,18 @@ class UserTable {
 
     public function saveUserData(User $user) {
         $data = [
-            'title' => $user->title,
+            'title' => "",
             'first_name' => $user->first_name,
             'last_name' => $user->last_name,
             'username' => $user->username,
             'password' => md5($user->password),
-            'email' => $user->email,
-            'address' => $user->address,
+            'email' => "",
+            'address' => "",
             'phone' => $user->phone,
-            'state' => $user->state,
-            'city' => $user->city,
+            'state' => "",
+            'city' => "",
             'country' => $user->country,
-            'aboutme' => $user->aboutme,
+            'aboutme' => "",
             'status' => '1'
         ];
         $id = (int) $user->id;

@@ -66,7 +66,7 @@ class User implements InputFilterAwareInterface {
 
         $inputFilter->add([
             'name' => 'title',
-            'required' => true,
+            'required' => false,
             'filters' => [
                     ['name' => StripTags::class],
                     ['name' => StringTrim::class],
@@ -181,7 +181,7 @@ class User implements InputFilterAwareInterface {
         ]);
         $inputFilter->add([
             'name' => 'email',
-            'required' => true,
+            'required' => false,
             'filters' => [
                     ['name' => StripTags::class],
                     ['name' => StringTrim::class],
@@ -276,7 +276,7 @@ class User implements InputFilterAwareInterface {
         ]);
         $inputFilter->add([
             'name' => 'country',
-            'required' => false,
+            'required' => true,
             'filters' => [
                     ['name' => StripTags::class],
                     ['name' => StringTrim::class],
