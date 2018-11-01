@@ -42,7 +42,10 @@ class IndexController extends AbstractActionController {
         $userId = $this->session->offsetGet('userId');
         if ($userId) {
             $scoreTable = new ScoreTable();
-            $currentScore = $scoreTable->fetchCurrScore($this->dbAdapter,$userId);
+            $currentScore = $scoreTable->fetchCurrScore($this->dbAdapter, $userId);
+            if (empty($currentScore)) {
+                $currentScore[0] = ['won_game' => 0, 'loss_game' => 0];
+            }
             return new ViewModel([
                 'score' => $currentScore[0],
             ]);
@@ -55,13 +58,13 @@ class IndexController extends AbstractActionController {
         $this->session->getManager()->getStorage()->clear('User');
         return $this->redirect()->toRoute('home');
     }
-    
+
     public function updateStatisticAction() {
         $userId = $this->session->offsetGet('userId');
         if ($userId) {
             $data = $_GET['data'];
             $scoreTable = new ScoreTable();
-            $currentScore = $scoreTable->updateCurrScore($this->dbAdapter,$userId,$data);
+            $currentScore = $scoreTable->updateCurrScore($this->dbAdapter, $userId, $data);
             return true;
         } else {
             return $this->redirect()->toRoute('home');
