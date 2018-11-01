@@ -57,7 +57,7 @@ class IndexController extends AbstractActionController {
     }
     
     public function updateStatisticAction() {
-        $userId = $this->session->offsetExists('userId');
+        $userId = $this->session->offsetGet('userId');
         if ($userId) {
             $data = $_GET['data'];
             $scoreTable = new ScoreTable();
